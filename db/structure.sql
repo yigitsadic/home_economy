@@ -73,7 +73,9 @@ CREATE TABLE public.months (
     year character varying NOT NULL,
     full_name character varying GENERATED ALWAYS AS ((((name)::text || '/'::text) || (year)::text)) STORED,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    income_total numeric(10,2) DEFAULT 0.0 NOT NULL,
+    expense_total numeric(10,2) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -180,6 +182,7 @@ ALTER TABLE ONLY public.activities
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240624200213'),
 ('20240624190109'),
 ('20240624182536');
 
