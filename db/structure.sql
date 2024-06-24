@@ -14,6 +14,44 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: activities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.activities (
+    id bigint NOT NULL,
+    title character varying NOT NULL,
+    expanded_description character varying,
+    recurring boolean DEFAULT false NOT NULL,
+    day_of_month integer NOT NULL,
+    financial_activity boolean DEFAULT true NOT NULL,
+    amount numeric(10,2) DEFAULT 0.0 NOT NULL,
+    month_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    CONSTRAINT respect_months_boundaries CHECK (((day_of_month >= 1) AND (day_of_month <= 31)))
+);
+
+
+--
+-- Name: activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.activities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.activities_id_seq OWNED BY public.activities.id;
+
+
+--
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -68,10 +106,25 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: activities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activities ALTER COLUMN id SET DEFAULT nextval('public.activities_id_seq'::regclass);
+
+
+--
 -- Name: months id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.months ALTER COLUMN id SET DEFAULT nextval('public.months_id_seq'::regclass);
+
+
+--
+-- Name: activities activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activities
+    ADD CONSTRAINT activities_pkey PRIMARY KEY (id);
 
 
 --
@@ -99,10 +152,25 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: index_activities_on_month_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activities_on_month_id ON public.activities USING btree (month_id);
+
+
+--
 -- Name: index_months_on_full_name; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_months_on_full_name ON public.months USING btree (full_name);
+
+
+--
+-- Name: activities fk_rails_26c521eba9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activities
+    ADD CONSTRAINT fk_rails_26c521eba9 FOREIGN KEY (month_id) REFERENCES public.months(id);
 
 
 --
@@ -112,5 +180,6 @@ CREATE UNIQUE INDEX index_months_on_full_name ON public.months USING btree (full
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240624190109'),
 ('20240624182536');
 
