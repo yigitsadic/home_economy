@@ -1,24 +1,6 @@
-# README
+# Home Economy
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Keeping track of your expenses and incomes becomes important after 20ties or 30ties and I am no different. After using Google Sheets for tracking my monthly expenses,
+decided to create a local application for tracking my financial status the way I like.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This project only intended for personal usage and I'll organize things that fit my preferences.
