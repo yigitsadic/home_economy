@@ -1,0 +1,22 @@
+default: &default
+  host: localhost
+  username: home_economy
+  password: home_economy
+
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: home_economy_development
+
+test:
+  <<: *default
+  database: home_economy_test
+
+production:
+  <<: *default
+  database: home_economy_production
+  username: home_economy
+  password: <%= ENV["HOME_ECONOMY_DATABASE_PASSWORD"] %>

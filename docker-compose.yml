@@ -1,0 +1,13 @@
+services:
+  database:
+    image: postgres:16.3
+    hostname: localhost
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: home_economy
+      POSTGRES_PASSWORD: home_economy
+      POSTGRES_DB: home_economy
+    volumes:
+      - /data:/var/lib/postgresql/data
+    restart: unless-stopped
