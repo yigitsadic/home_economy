@@ -23,7 +23,7 @@ module HomeEconomy
     config.load_defaults 7.1
     config.autoload_lib(ignore: %w(assets tasks))
     config.generators.system_tests = nil
-    
+    config.active_record.schema_format = :sql
     config.generators do |g|
       g.test_framework = :rspec
     end
