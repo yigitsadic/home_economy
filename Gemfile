@@ -23,5 +23,7 @@ end
 group :development do
   gem "web-console"
   gem "rack-mini-profiler"
+  gem "guard"
+  gem 'guard-rspec', require: false
 end
 
