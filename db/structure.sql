@@ -26,12 +26,52 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: months; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.months (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    year character varying NOT NULL,
+    full_name character varying GENERATED ALWAYS AS ((((name)::text || '/'::text) || (year)::text)) STORED,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: months_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.months_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: months_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.months_id_seq OWNED BY public.months.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.schema_migrations (
     version character varying NOT NULL
 );
+
+
+--
+-- Name: months id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.months ALTER COLUMN id SET DEFAULT nextval('public.months_id_seq'::regclass);
 
 
 --
@@ -43,6 +83,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
+-- Name: months months_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.months
+    ADD CONSTRAINT months_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -51,10 +99,18 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: index_months_on_full_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_months_on_full_name ON public.months USING btree (full_name);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user", public;
 
-
+INSERT INTO "schema_migrations" (version) VALUES
+('20240624182536');
 
