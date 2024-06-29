@@ -9,6 +9,28 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+--
+-- Name: event_categories; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE public.event_categories AS ENUM (
+    'income',
+    'expense',
+    'investment',
+    'informatic'
+);
+
+
+--
+-- Name: event_types; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE public.event_types AS ENUM (
+    'one_time',
+    'recurring'
+);
+
+
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
@@ -62,6 +84,40 @@ ALTER SEQUENCE public.months_id_seq OWNED BY public.months.id;
 
 
 --
+-- Name: recurring_events; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.recurring_events (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    category public.event_categories NOT NULL,
+    day_of_month smallint NOT NULL,
+    financial_value numeric(8,2) DEFAULT 0.0 NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: recurring_events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.recurring_events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: recurring_events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.recurring_events_id_seq OWNED BY public.recurring_events.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -78,6 +134,13 @@ ALTER TABLE ONLY public.months ALTER COLUMN id SET DEFAULT nextval('public.month
 
 
 --
+-- Name: recurring_events id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.recurring_events ALTER COLUMN id SET DEFAULT nextval('public.recurring_events_id_seq'::regclass);
+
+
+--
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -91,6 +154,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.months
     ADD CONSTRAINT months_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: recurring_events recurring_events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.recurring_events
+    ADD CONSTRAINT recurring_events_pkey PRIMARY KEY (id);
 
 
 --
@@ -115,6 +186,8 @@ CREATE UNIQUE INDEX index_months_on_full_name ON public.months USING btree (full
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240629083919'),
+('20240629083117'),
 ('20240629082707'),
 ('20240624182536');
 
