@@ -48,6 +48,43 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: events; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.events (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    description character varying,
+    category public.event_categories NOT NULL,
+    event_date date NOT NULL,
+    event_type public.event_types NOT NULL,
+    month_id bigint NOT NULL,
+    financial_value numeric(8,2) DEFAULT 0.0 NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.events_id_seq OWNED BY public.events.id;
+
+
+--
 -- Name: months; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -127,6 +164,13 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: events id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.events ALTER COLUMN id SET DEFAULT nextval('public.events_id_seq'::regclass);
+
+
+--
 -- Name: months id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -146,6 +190,14 @@ ALTER TABLE ONLY public.recurring_events ALTER COLUMN id SET DEFAULT nextval('pu
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: events events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.events
+    ADD CONSTRAINT events_pkey PRIMARY KEY (id);
 
 
 --
@@ -173,10 +225,25 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: index_events_on_month_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_events_on_month_id ON public.events USING btree (month_id);
+
+
+--
 -- Name: index_months_on_full_name; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_months_on_full_name ON public.months USING btree (full_name);
+
+
+--
+-- Name: events fk_rails_de4c867890; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.events
+    ADD CONSTRAINT fk_rails_de4c867890 FOREIGN KEY (month_id) REFERENCES public.months(id);
 
 
 --
@@ -186,6 +253,7 @@ CREATE UNIQUE INDEX index_months_on_full_name ON public.months USING btree (full
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240629090041'),
 ('20240629083919'),
 ('20240629083117'),
 ('20240629082707'),
