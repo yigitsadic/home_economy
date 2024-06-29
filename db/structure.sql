@@ -35,7 +35,10 @@ CREATE TABLE public.months (
     year character varying NOT NULL,
     full_name character varying GENERATED ALWAYS AS ((((name)::text || '/'::text) || (year)::text)) STORED,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    total_expense numeric(8,2) DEFAULT 0.0 NOT NULL,
+    total_income numeric(8,2) DEFAULT 0.0 NOT NULL,
+    total_value_of_investments numeric(8,2) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -112,5 +115,6 @@ CREATE UNIQUE INDEX index_months_on_full_name ON public.months USING btree (full
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240629082707'),
 ('20240624182536');
 
