@@ -8,7 +8,8 @@ RSpec.describe "Dashboards", type: :system do
   let(:month) { build(:month) }
 
   it "sees current month's name" do
-    visit root_path
+    allow(Month).to receive(:get_current_month).and_return month
+    visit root_path 
     
     expect(page).to have_text(month.full_name)
   end
