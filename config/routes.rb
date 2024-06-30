@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   scope "months/:month_id", as: :month do
     get 'events/expenses'
+    get 'events/invesments'
   end
 end
 

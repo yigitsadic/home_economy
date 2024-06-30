@@ -5,6 +5,10 @@ class EventsController < ApplicationController
     @events = @month.events.expense.order(event_date: :asc)
   end
 
+  def invesments
+    @events = @month.events.investment.order(event_date: :asc)
+  end
+
   private
 
   def set_month

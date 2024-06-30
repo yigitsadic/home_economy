@@ -1,0 +1,13 @@
+= turbo_frame_tag(frame_tag_name) do
+  %h3= title
+  
+  %table.table
+    %thead
+      %tr
+        %th Date
+        %th Name
+        %th Is Recurring?
+        %th Financial Value
+        %th 
+    %tbody
+      = render(events)
