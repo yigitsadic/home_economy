@@ -1,0 +1,19 @@
+%h1= month.full_name
+
+%table.table
+  %tr
+    %th Total Income
+    %td= number_to_currency(month.total_income)
+
+  %tr
+    %th Total Expense
+    %td= number_to_currency(month.total_expense)
+
+  %tr
+    %th Total Investment
+    %td= number_to_currency(month.total_investment)
+    
+  %tr
+    %th Total Value of Investments
+    %td= number_to_currency(month.total_value_of_investments)
+    
