@@ -12,18 +12,20 @@ gem "jbuilder"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 gem "haml-rails", "~> 2.0"
+gem "bootstrap", "~> 5.3.3"
+gem "dartsass-rails"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
-  gem 'rspec-rails', '~> 6.0.0'
-  gem 'shoulda-matchers', '~> 6.0'
-  gem 'factory_bot_rails' 
+  gem "rspec-rails", "~> 6.0.0"
+  gem "shoulda-matchers", "~> 6.0"
+  gem "factory_bot_rails" 
 end
 
 group :development do
   gem "web-console"
   gem "rack-mini-profiler"
   gem "guard"
-  gem 'guard-rspec', require: false
+  gem "guard-rspec", require: false
 end
 

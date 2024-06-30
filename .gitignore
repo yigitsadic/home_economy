@@ -23,3 +23,6 @@
 /config/master.key
 
 !/data/.keep
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
