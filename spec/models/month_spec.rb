@@ -12,24 +12,30 @@ RSpec.describe Month, type: :model do
   describe "#get_current_month" do
     let(:month_data) { attributes_for(:month) }
 
+    before(:each) { @got = nil } 
+
     it "returns the month if exists" do
       created = create(:month)
-      expect(Month.find_by(**month_data)).not_to be_nil
+      expect(described_class.find_by(**month_data)).not_to be_nil
 
-      got = nil
-      
-      expect { got = Month.get_current_month }.not_to change { Month.count }
-      expect(created).to eq(got)
+      expect { @got = described_class.get_current_month }.not_to change { Month.count }
+      expect(created).to eq(@got)
     end
 
     it "creates and returns the month if not exists" do
-      got = nil
-      
-      expect { got = Month.get_current_month }.to change { Month.count }.by(1)
-      expect(got.name).to eq(month_data[:name])
-      expect(got.year).to eq(month_data[:year])
-      expect(got.full_name).to eq(month_data[:full_name])
+      expect { @got = described_class.get_current_month }.to change { Month.count }.by(1)
+      expect(@got.name).to eq(month_data[:name])
+      expect(@got.year).to eq(month_data[:year])
+      expect(@got.full_name).to eq(month_data[:full_name])
     end
+  end
+
+  it "creates events from recurring events after create commit" do
+    allow(RecurringEvent).to receive(:create_recurring_events)
+    
+    month = create(:month)
+
+    expect(RecurringEvent).to have_received(:create_recurring_events).with(month)
   end
 end
 

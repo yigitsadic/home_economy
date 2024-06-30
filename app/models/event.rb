@@ -1,8 +1,10 @@
 class Event < ApplicationRecord
-  belongs_to :month
+  include CategoryEnum
   
-  enum category: %w(income expense investment informatic)
-  enum event_type: %w(one_time recurring)
+  belongs_to :month
+  validates :name, :category, :is_recurring, :event_date, presence: true
 
-  validates :name, :category, :event_type, :event_date, presence: true
+  def recurring? = is_recurring
+  def one_time? = !is_recurring
 end
+

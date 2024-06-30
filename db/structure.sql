@@ -21,16 +21,6 @@ CREATE TYPE public.event_categories AS ENUM (
 );
 
 
---
--- Name: event_types; Type: TYPE; Schema: public; Owner: -
---
-
-CREATE TYPE public.event_types AS ENUM (
-    'one_time',
-    'recurring'
-);
-
-
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
@@ -57,11 +47,11 @@ CREATE TABLE public.events (
     description character varying,
     category public.event_categories NOT NULL,
     event_date date NOT NULL,
-    event_type public.event_types NOT NULL,
     month_id bigint NOT NULL,
     financial_value numeric(8,2) DEFAULT 0.0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    is_recurring boolean DEFAULT false NOT NULL
 );
 
 
@@ -253,6 +243,7 @@ ALTER TABLE ONLY public.events
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240630175335'),
 ('20240629090041'),
 ('20240629083919'),
 ('20240629083117'),
