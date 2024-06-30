@@ -87,7 +87,8 @@ CREATE TABLE public.months (
     updated_at timestamp(6) without time zone NOT NULL,
     total_expense numeric(8,2) DEFAULT 0.0 NOT NULL,
     total_income numeric(8,2) DEFAULT 0.0 NOT NULL,
-    total_value_of_investments numeric(8,2) DEFAULT 0.0 NOT NULL
+    total_value_of_investments numeric(8,2) DEFAULT 0.0 NOT NULL,
+    total_investment numeric(8,2) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -243,6 +244,7 @@ ALTER TABLE ONLY public.events
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240630193629'),
 ('20240630175335'),
 ('20240629090041'),
 ('20240629083919'),
