@@ -1,0 +1,6 @@
+%tr
+  %td= event.event_date.strftime("%d/%y")
+  %td= event.name
+  %td= event.is_recurring ? "Yes" : "No"
+  %td= number_to_currency(event.financial_value)
+  

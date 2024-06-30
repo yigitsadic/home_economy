@@ -1,19 +1,18 @@
-%h1= month.full_name
+.container.text-center
+  .row
+    .col
+      %h2 Total Income
+      %h3
+        %span.badge.rounded-pill.text-bg-success
+          = number_to_currency(month.total_income)
+    .col
+      %h2 Total Expense
+      %h3
+        %span.badge.rounded-pill.text-bg-danger
+          = number_to_currency(month.total_expense)
+    .col
+      %h2 Total Investment
+      %h3
+        %span.badge.rounded-pill.text-bg-warning
+          = number_to_currency(month.total_investment)
 
-%table.table
-  %tr
-    %th Total Income
-    %td= number_to_currency(month.total_income)
-
-  %tr
-    %th Total Expense
-    %td= number_to_currency(month.total_expense)
-
-  %tr
-    %th Total Investment
-    %td= number_to_currency(month.total_investment)
-    
-  %tr
-    %th Total Value of Investments
-    %td= number_to_currency(month.total_value_of_investments)
-    

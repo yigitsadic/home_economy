@@ -1,0 +1,13 @@
+= turbo_frame_tag(:expense_list) do
+  %h3 Expenses
+  
+  %table.table
+    %thead
+      %tr
+        %th Date
+        %th Name
+        %th Is Recurring?
+        %th Financial Value
+        %th 
+    %tbody
+      = render(@events)
