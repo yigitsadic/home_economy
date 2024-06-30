@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :month do
-    name { "June" }
-    year { "2024" }
-    full_name { "June/2024" }
+    name { I18n.t("date.month_names")[Date.current.month] }
+    year { Date.current.year.to_s }
+    full_name { "#{name}/#{year}" }
 
     trait :february do
       name { "February" }

@@ -20,6 +20,8 @@ group :development, :test do
   gem "rspec-rails", "~> 6.0.0"
   gem "shoulda-matchers", "~> 6.0"
   gem "factory_bot_rails" 
+  gem "capybara", "~> 3.40"
+  gem "rails-controller-testing", "~> 1.0"
 end
 
 group :development do
