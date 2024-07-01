@@ -1,3 +1,11 @@
-%nav.navbar
+%nav.navbar.navbar-expand-lg.bg-body-tertiary
   .container-fluid
     = link_to "Home Economy", root_path, class: "navbar-brand"
+
+    %button.navbar-toggler{ type: "button", "data-bs-toggle": "collapse", "data-bs-target": "#navbarNav" }
+      %span.navbar-toggler-icon
+
+    .collapse.navbar-collapse#navbarNav
+      %ul.navbar-nav
+        %li.nav-item
+          = link_to "Recurring Events", recurring_events_path, class: "nav-link"
