@@ -1,0 +1,16 @@
+%h2= @recurring_event.name
+
+.row
+  .col
+    %h3 Category
+    %h4= @recurring_event.category
+
+  .col
+    %h3 Day of Month
+    %h4= @recurring_event.day_of_month
+
+  .col
+    %h3 Financial Value
+    %h4= number_to_currency(@recurring_event.financial_value)
+    
+= link_to "Edit", edit_recurring_event_path(@recurring_event)

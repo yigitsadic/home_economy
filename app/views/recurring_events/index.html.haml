@@ -1,0 +1,25 @@
+%h2 Recurring Event List
+
+= link_to "Create New", new_recurring_event_path
+
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Category
+      %th Day of Month
+      %th Financial Value
+      %th &nbsp;
+      %th &nbsp;
+      %th &nbsp;
+  %tbody
+    - @recurring_events.each do |recurring_event|
+      %tr
+        %td= recurring_event.name
+        %td= recurring_event.category
+        %td= recurring_event.day_of_month
+        %td= recurring_event.financial_value
+        %td= link_to("Details", recurring_event)
+        %td= link_to("Edit", edit_recurring_event_path(recurring_event))
+        %td= button_to("Delete", recurring_event_path(recurring_event), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger")
+

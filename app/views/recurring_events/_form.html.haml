@@ -1,0 +1,30 @@
+= form_with(model: recurring_event) do |form|
+  - if recurring_event.errors.any?
+    .alert.alert-danger
+      %h2
+        = pluralize(recurring_event.errors.count, "error")
+        prohibited this recurring event from being saved:
+      
+      %ul
+        - recurring_event.errors.each do |error|
+          %li= error.full_message
+    
+  .form-floating
+    = form.text_field :name, placeholder: "Name", class: "form-control"
+    = form.label :name
+
+  .form-floating
+    = form.select :category, %w[income expense investment informatic], {}, { class: "form-select" }
+    = form.label :category
+
+  .form-floating
+    = form.number_field :day_of_month, placeholder: "Day of Month", class: "form-control", min: 1, max: 31, step: 1
+    = form.label :day_of_month
+
+  .form-floating
+    = form.number_field :financial_value, placeholder: "Financial Value", class: "form-control", min: 0, step: 0.01
+    = form.label :financial_value
+
+  %div
+    = form.submit class: "btn btn-success"
+

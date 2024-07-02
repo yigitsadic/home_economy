@@ -7,5 +7,7 @@ Rails.application.routes.draw do
     get 'events/expenses'
     get 'events/invesments'
   end
+
+  resources :recurring_events
 end
 
