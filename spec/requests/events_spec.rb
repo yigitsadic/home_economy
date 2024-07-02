@@ -12,15 +12,15 @@ RSpec.describe "Events", type: :request do
   
   describe "GET /expenses" do
     it "returns http success" do
-      get month_events_expenses_path(month)
+      get month_expense_list_path(month)
       
       expect(response).to have_http_status(:success)
     end
   end
   
-  describe "GET /expenses" do
+  describe "GET /invesments" do
     it "returns http success" do
-      get month_events_invesments_path(month)
+      get month_investment_list_path(month)
       
       expect(response).to have_http_status(:success)
     end

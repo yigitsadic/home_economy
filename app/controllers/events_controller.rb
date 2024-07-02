@@ -5,7 +5,7 @@ class EventsController < ApplicationController
     @events = @month.events.expense.order(event_date: :asc)
   end
 
-  def invesments
+  def investments
     @events = @month.events.investment.order(event_date: :asc)
   end
 

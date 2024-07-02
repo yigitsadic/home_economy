@@ -4,10 +4,10 @@
 .container-fluid
   .row
     .col-3
-      = turbo_frame_tag(:expense_list, src: month_events_expenses_path(@month.id), loading: :lazy) do
+      = turbo_frame_tag(:expense_list, src: month_expense_list_path(@month.id), loading: :lazy) do
         Loading expenses...
 
     .col-3
-      = turbo_frame_tag(:investment_list, src: month_events_invesments_path(@month.id), loading: :lazy) do
+      = turbo_frame_tag(:investment_list, src: month_investment_list_path(@month.id), loading: :lazy) do
         Loading investments...
 
