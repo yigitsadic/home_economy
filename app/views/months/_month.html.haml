@@ -1,3 +1,5 @@
+%h1= month.full_name
+
 .container.text-center
   .row
     .col
@@ -15,4 +17,14 @@
       %h3
         %span.badge.rounded-pill.text-bg-warning
           = number_to_currency(month.total_investment)
+
+.container-fluid
+  .row
+    .col-3
+      = turbo_frame_tag(:expense_list, src: month_expense_list_path(@month.id), loading: :lazy) do
+        Loading expenses...
+
+    .col-3
+      = turbo_frame_tag(:investment_list, src: month_investment_list_path(@month.id), loading: :lazy) do
+        Loading investments...
 
