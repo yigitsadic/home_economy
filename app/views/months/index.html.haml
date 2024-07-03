@@ -8,8 +8,7 @@
         .card-body
           %h5.card-title= month.full_name
           %p.card-text
-            %div{ data: { controller: "pie-chart", expense: month.total_expense, investment: month.total_investment, available: month.available_amount }}
-              %canvas{ data: { "pie-chart-target": "canvas" } }
+            = month_pie_chart(month)
             
             %table.table
               %tr
