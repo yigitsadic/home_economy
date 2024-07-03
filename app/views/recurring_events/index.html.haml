@@ -18,7 +18,7 @@
         %td= recurring_event.name
         %td= recurring_event.category
         %td= recurring_event.day_of_month
-        %td= recurring_event.financial_value
+        %td= number_to_currency(recurring_event.financial_value)
         %td= link_to("Details", recurring_event)
         %td= link_to("Edit", edit_recurring_event_path(recurring_event))
         %td= button_to("Delete", recurring_event_path(recurring_event), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger")
