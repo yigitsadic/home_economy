@@ -37,5 +37,35 @@ RSpec.describe Month, type: :model do
 
     expect(RecurringEvent).to have_received(:create_recurring_events).with(month)
   end
+
+  describe "#calculate_metrics" do
+    subject { create(:month) }
+
+    before do
+      allow_any_instance_of(Event).to receive(:calculate_metrics).and_return(true)
+      
+      create_list(:event, 2, :expense, month: subject, financial_value: 15.30)
+      create_list(:event, 2, :income, month: subject, financial_value: 25.30)
+      create_list(:event, 2, :investment, month: subject, financial_value: 35.30)
+    end
+
+    context "expenses" do
+      it "should calculate and write to total_expense" do
+        expect { subject.calculate_metrics }.to change(subject, :total_expense).by(15.3 * 2)
+      end
+    end
+
+    context "incomes" do
+      it "should calculate and write to total_income" do
+        expect { subject.calculate_metrics }.to change(subject, :total_income).by(25.3 * 2)
+      end
+    end
+
+    context "investments" do
+      it "should calculate and write to total_investment" do
+        expect { subject.calculate_metrics }.to change(subject, :total_investment).by(35.3 * 2)
+      end
+    end
+  end
 end
 
