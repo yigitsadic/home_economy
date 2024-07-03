@@ -88,7 +88,8 @@ CREATE TABLE public.months (
     total_expense numeric(8,2) DEFAULT 0.0 NOT NULL,
     total_income numeric(8,2) DEFAULT 0.0 NOT NULL,
     total_value_of_investments numeric(8,2) DEFAULT 0.0 NOT NULL,
-    total_investment numeric(8,2) DEFAULT 0.0 NOT NULL
+    total_investment numeric(8,2) DEFAULT 0.0 NOT NULL,
+    available_amount numeric GENERATED ALWAYS AS (((total_income - total_expense) - total_investment)) STORED
 );
 
 
@@ -244,6 +245,7 @@ ALTER TABLE ONLY public.events
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240703155020'),
 ('20240630193629'),
 ('20240630175335'),
 ('20240629090041'),

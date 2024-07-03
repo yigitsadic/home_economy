@@ -17,6 +17,7 @@ RSpec.describe "Months", type: :system do
       expect(page).to have_text("Total Income")
       expect(page).to have_text("Total Expense")
       expect(page).to have_text("Total Investment")
+      expect(page).to have_text("Available")
     end
   end
 
@@ -30,6 +31,7 @@ RSpec.describe "Months", type: :system do
       expect(page).to have_text("Total Income")
       expect(page).to have_text("Total Expense")
       expect(page).to have_text("Total Investment")
+      expect(page).to have_text("Available")
     end
   end
 end

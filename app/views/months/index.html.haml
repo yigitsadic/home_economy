@@ -8,6 +8,9 @@
         .card-body
           %h5.card-title= month.full_name
           %p.card-text
+            %div{ data: { controller: "pie-chart", expense: month.total_expense, investment: month.total_investment, available: month.available_amount }}
+              %canvas{ data: { "pie-chart-target": "canvas" } }
+            
             %table.table
               %tr
                 %th Total Income
@@ -18,6 +21,9 @@
               %tr
                 %th Total Investment
                 %td= number_to_currency(month.total_investment)
+              %tr
+                %th Available
+                %td= number_to_currency(month.available_amount)
 
             = link_to "#{month.full_name} Details", month
 
